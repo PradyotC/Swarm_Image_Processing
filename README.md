@@ -37,9 +37,13 @@ To ensure stability on 1GB RAM instances, the following specifications and UserD
 
 
 4. **SSH Key Exchange:**
-* On the Master terminal, run: `cat ~/.ssh/id_ed25519.pub`.
-* SSH into **both Slaves** and append that key to the authorized list: `nano ~/.ssh/authorized_keys`.
-
+* **On Master:** Run this command to generate a ready-to-use installation command:
+  
+  ```bash
+  echo "echo \"$(cat ~/.ssh/id_ed25519.pub)\" >> ~/.ssh/authorized_keys"
+  ```
+* **Copy the output:** The terminal will print a line starting with `echo "ssh-ed25519...`. Copy this entire line.
+* **On Slaves:** SSH into **both Slaves** and simply **paste** that copied line into the terminal and hit Enter. This automatically adds the Master's key to the authorized list.
 
 
 ---
