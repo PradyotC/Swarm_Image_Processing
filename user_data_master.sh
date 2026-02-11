@@ -33,7 +33,7 @@ sed -i 's|^Environment="JAVA_OPTS=.*|Environment="JAVA_OPTS=-Djava.awt.headless=
 
 # 7. SSH SETUP (FOR MANUAL NODE CONNECTION)
 # Keeping keys in the default location for easy manual setup as requested
-ssh-keygen -t ed25519 -N "" -f /root/.ssh/id_ed25519 <<< y >/dev/null 2>&1
+ssh-keygen -t ed25519 -N "" -f /home/ec2-user/.ssh/id_ed25519 <<< y >/dev/null 2>&1
 
 # 8. START JENKINS
 systemctl daemon-reload
