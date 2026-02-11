@@ -67,7 +67,7 @@ To ensure stability on 1GB RAM instances, the following specifications and UserD
 4. **Labels:** `slave-1`.
 5. **Launch Method:** `Launch agents via SSH`.
 * **Host:** `<PUBLIC_IP_OF_SLAVE_1>`
-* **Credentials: (Add new) ** 
+* **Credentials: (Add new)** 
   * Username: `ec2-user`
   * Private Key: Paste contents of Master from the output of following command
   
