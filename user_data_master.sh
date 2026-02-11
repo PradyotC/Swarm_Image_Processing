@@ -31,9 +31,9 @@ chown -R jenkins:jenkins /var/lib/jenkins/userContent
 # We cap Java at 512MB to leave 400MB+ for the OS kernel
 sed -i 's|^Environment="JAVA_OPTS=.*|Environment="JAVA_OPTS=-Djava.awt.headless=true -Xmx512m -Xms512m -XX:+UseSerialGC -Djava.io.tmpdir=/var/lib/jenkins/new_tmp"|' /usr/lib/systemd/system/jenkins.service
 
-# 7. SSH SETUP (FOR MANUAL NODE CONNECTION)
-# Keeping keys in the default location for easy manual setup as requested
+# 7. SSH KEYGEN
 ssh-keygen -t ed25519 -N "" -f /home/ec2-user/.ssh/id_ed25519 <<< y >/dev/null 2>&1
+chown ec2-user:ec2-user /home/ec2-user/.ssh/id_ed25519*
 
 # 8. START JENKINS
 systemctl daemon-reload
