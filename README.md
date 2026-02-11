@@ -32,14 +32,19 @@ To ensure stability on 1GB RAM instances, the following specifications and UserD
 
 1. **Launch Instances:** Create **1 Master** and **2 Slaves** from your respective templates.
 2. **Wait:** Allow 2-3 minutes for the UserData scripts to complete software installation and system tuning.
-3. **Initial Unlock:** * SSH into the Master and run `sudo cat /var/lib/jenkins/secrets/initialAdminPassword` and copy the initial password.
+3. **Initial Unlock:** 
+* SSH into the Master and copy the initial password from out of the following command:
+  
+  ```sh
+  sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+  ```
 * Navigate to `http://<MASTER_PUBLIC_IP>:8080` to complete the setup wizard and install default plugins.
 
 
 4. **SSH Key Exchange:**
 * **On Master:** Run this command to generate a ready-to-use installation command:
   
-  ```bash
+  ```sh
   echo "echo \"$(cat ~/.ssh/id_ed25519.pub)\" >> ~/.ssh/authorized_keys"
   ```
 * **Copy the output:** The terminal will print a line starting with `echo "ssh-ed25519...`. Copy this entire line.
@@ -54,18 +59,30 @@ To ensure stability on 1GB RAM instances, the following specifications and UserD
 
 1. Navigate to **Manage Jenkins > Nodes > New Node**.
 2. **Name:** `slave-1` | **Type:** `Permanent Agent`.
-3. **Remote Root Directory:** `/home/ec2-user/jenkins_agent/`.
+3. **Remote Root Directory:** 
+
+    ```text
+    /home/ec2-user/jenkins_agent/
+    ```
 4. **Labels:** `slave-1`.
 5. **Launch Method:** `Launch agents via SSH`.
 * **Host:** `<PUBLIC_IP_OF_SLAVE_1>`
-* **Credentials:** Add new (Username: `ec2-user`, Private Key: Paste contents of Master's `~/.ssh/id_ed25519`).
+* **Credentials: (Add new) ** 
+  * Username: `ec2-user`
+  * Private Key: Paste contents of Master from the output of following command
+  
+    ```sh
+    cat ~/.ssh/id_ed25519
+    ```
 * **Host Key Verification:** `Non verifying Verification Strategy`.
 
 
 6. **Advanced (Java Optimization):**
-* **JavaPath:** `"/usr/bin/java" -Djava.io.tmpdir=/home/ec2-user/jenkins_tmp -Xmx512m -Xms512m -XX:+UseSerialGC`
-
-
+* **JavaPath:**
+  
+  ```sh
+  "/usr/bin/java" -Djava.io.tmpdir=/home/ec2-user/jenkins_tmp -Xmx512m -Xms512m -XX:+UseSerialGC
+  ```
 7. **Save** and ensure the node comes online.
 
 ### Slave-2 Configuration
@@ -85,7 +102,11 @@ To ensure stability on 1GB RAM instances, the following specifications and UserD
 
 3. **Pipeline Definition:**
 * **SCM:** `Git`
-* **Repository URL:** `https://github.com/PradyotC/Swarm_Image_Processing.git`
+* **Repository URL:** 
+
+  ```text
+  https://github.com/PradyotC/Swarm_Image_Processing.git
+  ```
 * **Branch:** `*/main`
 * **Script Path:** `Jenkinsfile`
 
